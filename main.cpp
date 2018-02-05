@@ -245,7 +245,6 @@ void wyszukajAdresatowPoNazwisku(vector <Adresat> &adresaci)
 void zapiszWszystkichAdresatowDoPlikuTekstowego (vector <Adresat> &adresaci)
 {
     fstream plik;
-    plik.clear();
     plik.open("KsiazkaAdresowa.txt", ios::out);
 
     if (plik.good() == true)
