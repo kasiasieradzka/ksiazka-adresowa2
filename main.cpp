@@ -51,9 +51,9 @@ Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami)
                 adresat.adres = pojedynczaDanaAdresata;
                 break;
             }
-        }
         pojedynczaDanaAdresata = "";
         numerPojedynczejDanejAdresata++;
+        }
     }
     return adresat;
 }
@@ -62,26 +62,23 @@ void wczytajOsobyZPliku (vector <Adresat> &adresaci)
 {
     Adresat adresat;
     string daneJednegoAdresataOddzielonePionowymiKreskami = "";
-    ifstream plik;
+    fstream plik;
 
-    plik.open("KsiazkaAdresowa.txt", ios::in | ios::app);
-    if (plik.good() == false)
+    plik.open("KsiazkaAdresowa.txt", ios::in);
+    if (plik.good() == true)
     {
-        cout<<"Plik nie istnieje!";
-        exit(0);
-    }
     while(getline(plik, daneJednegoAdresataOddzielonePionowymiKreskami))
     {
         adresat = pobierzDaneAdresata(daneJednegoAdresataOddzielonePionowymiKreskami);
         adresaci.push_back(adresat);
     }
     plik.close();
+    }
 }
 
 void dopiszAdresataDoPliku(Adresat adresat)
 {
     fstream plik;
-    plik.clear();
     plik.open("KsiazkaAdresowa.txt", ios::out | ios::app);
 
     if (plik.good() == true)
@@ -251,20 +248,19 @@ void zapiszWszystkichAdresatowDoPlikuTekstowego (vector <Adresat> &adresaci)
     plik.clear();
     plik.open("KsiazkaAdresowa.txt", ios::out);
 
-    for ( unsigned i = 0; i < adresaci.size(); i++)
-    {
     if (plik.good() == true)
     {
+        for ( unsigned i = 0; i < adresaci.size(); i++)
+        {
         plik << adresaci[i].id << "|" << adresaci[i].imie << "|"  << adresaci[i].nazwisko << "|"  << adresaci[i].numerTelefonu << "|"  << adresaci[i].email << "|"  << adresaci[i].adres << "|"  << endl;
 
         plik.close();
-
+        }
     }
     else
     {
         cout << "Nie mozna otworzyc pliku i zapisac w nim danych." << endl;
         system("pause");
-    }
     }
 }
 
@@ -384,6 +380,7 @@ void kasujAdresatow (vector <Adresat> &adresaci)
             itr = adresaci.erase(itr);
             cout << endl << endl << "Szukany adresat zostal USUNIETY." << endl;
             zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
+            Sleep(1000);
             break;
         }
         else{
