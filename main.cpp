@@ -88,7 +88,7 @@ void dopiszAdresataDoPliku(Adresat adresat)
         plik.close();
 
         cout << "Osoba zostala dodana." << endl;
-        system("pause");
+        Sleep(2000);
     }
     else
     {
@@ -164,7 +164,7 @@ void wyszukajAdresatowPoImieniu(vector <Adresat> &adresaci)
 
         cout << "Wyszukaj adresatow o imieniu: ";
         cin >> imiePoszukiwanegoAdresata;
-        //
+        imiePoszukiwanegoAdresata = zamienPierwszaLitereNaDuzaAPozostaleNaMale(imiePoszukiwanegoAdresata);
 
         for (vector <Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
         {
@@ -209,7 +209,7 @@ void wyszukajAdresatowPoNazwisku(vector <Adresat> &adresaci)
 
         cout << "Wyszukaj adresatow o nazwisku: ";
         cin >> nazwiskoPoszukiwanegoAdresata;
-        //
+        nazwiskoPoszukiwanegoAdresata = zamienPierwszaLitereNaDuzaAPozostaleNaMale(nazwiskoPoszukiwanegoAdresata);
 
         for (vector <Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
         {
@@ -252,9 +252,8 @@ void zapiszWszystkichAdresatowDoPlikuTekstowego (vector <Adresat> &adresaci)
         for ( unsigned i = 0; i < adresaci.size(); i++)
         {
         plik << adresaci[i].id << "|" << adresaci[i].imie << "|"  << adresaci[i].nazwisko << "|"  << adresaci[i].numerTelefonu << "|"  << adresaci[i].email << "|"  << adresaci[i].adres << "|"  << endl;
-
-        plik.close();
         }
+        plik.close();
     }
     else
     {
@@ -280,20 +279,20 @@ void edytujAdresatow (vector <Adresat> &adresaci)
 
     for (vector <Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++)
     {
-    if (itr -> id == idEdytowanegoAdresata)
-    {
-        czyIstniejeAdresat = true;
-    cout << endl;
-    cout << "Ktore dane chcesz edytowac?" << endl;
+        if (itr -> id == idEdytowanegoAdresata)
+        {
+            czyIstniejeAdresat = true;
+            cout << endl;
+            cout << "Ktore dane chcesz edytowac?" << endl;
 
-    cout << "1 - Imie            " << itr -> imie << endl;
-    cout << "2 - Nazwisko        " << itr -> nazwisko << endl;
-    cout << "3 - Numer telefonu  " << itr -> numerTelefonu << endl;
-    cout << "4 - Email           " << itr -> email << endl;
-    cout << "5 - Adres           " << itr -> adres << endl;
-    cout << "6 - Powrot" << endl;
-    cout << "Wybierz 1-6: ";
-    cin >> wybor;
+            cout << "1 - Imie            " << itr -> imie << endl;
+            cout << "2 - Nazwisko        " << itr -> nazwisko << endl;
+            cout << "3 - Numer telefonu  " << itr -> numerTelefonu << endl;
+            cout << "4 - Email           " << itr -> email << endl;
+            cout << "5 - Adres           " << itr -> adres << endl;
+            cout << "6 - Powrot" << endl;
+            cout << "Wybierz 1-6: ";
+            cin >> wybor;
 
     switch (wybor)
     {
@@ -355,6 +354,7 @@ void edytujAdresatow (vector <Adresat> &adresaci)
         cout << "W ksiazce adresowej nie ma adresata o podanym numerze ID." << endl;
         system("pause");
     }
+
 }
 
 void kasujAdresatow (vector <Adresat> &adresaci)
@@ -379,19 +379,19 @@ void kasujAdresatow (vector <Adresat> &adresaci)
             itr = adresaci.erase(itr);
             cout << endl << endl << "Szukany adresat zostal USUNIETY." << endl;
             zapiszWszystkichAdresatowDoPlikuTekstowego(adresaci);
-            Sleep(1000);
+            Sleep(2000);
             break;
         }
         else{
             cout << endl << endl << "Wybrany adresat NIE zostal usuniety." << endl;
-            Sleep(1000);
+            Sleep(1500);
             break;
         }
     }
     }
     if (czyIstniejeAdresat == false){
         cout << "W ksiazce adresowej nie ma adresata o podanym numerze ID." << endl;
-        system("pause");
+        Sleep(2000);
     }
 
 }
@@ -401,9 +401,6 @@ int main()
     vector <Adresat> adresaci;
     wczytajOsobyZPliku(adresaci);
     int iloscOsob = adresaci.size();
-    cout << iloscOsob << endl;
-    system("pause");
-
     char wybor;
 
     while (true)
